@@ -1,0 +1,50 @@
+﻿@model OurShopK5.DataModels.HangHoa
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_BackEnd.cshtml";
+}
+
+<h2>Sửa thông tin hàng hóa</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaHh" />
+            <div class="form-group">
+                <label asp-for="MaLoai" class="control-label"></label>
+                @await Html.PartialAsync("~/Areas/Admin/Views/Shared/_Loai.cshtml", (LoaiSelectModel)ViewBag.LoaiCombo)
+            </div>
+            <div class="form-group">
+                <label asp-for="TenHh" class="control-label"></label>
+                <input asp-for="TenHh" class="form-control" />
+                <span asp-validation-for="TenHh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hinh" class="control-label"></label>
+                <img src="~/Hinh/HangHoa/@Model.Hinh" />
+                <input name="fHinh" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="MoTa" class="control-label"></label>
+                <input asp-for="MoTa" class="form-control" />
+                <span asp-validation-for="MoTa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DonGia" class="control-label"></label>
+                <input asp-for="DonGia" class="form-control" />
+                <span asp-validation-for="DonGia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GiamGia" class="control-label"></label>
+                <input asp-for="GiamGia" class="form-control" />
+                <span asp-validation-for="GiamGia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Cập nhật" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+

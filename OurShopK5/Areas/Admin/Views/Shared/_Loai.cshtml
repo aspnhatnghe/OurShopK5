@@ -1,0 +1,22 @@
+﻿@*@model IEnumerable<OurShopK5.DataModels.Loai>*@
+@model LoaiSelectModel
+
+<select name="MaLoai" class="form-control">
+    @{
+        var dsLoai = Model.Data;
+        var loaiCha = dsLoai.Where(p => p.MaLoaiCha == 0);
+    }
+    @foreach (var lo in loaiCha)
+    {
+        var dsLoaiCon = dsLoai.Where(p => p.MaLoaiCha == lo.MaLoai);
+        <optgroup label="@lo.TenLoai">
+            @foreach (var loai in dsLoaiCon)
+            {
+                var selected = loai.MaLoai == Model.Select ? "selected" : "";
+                <option value="@loai.MaLoai" selected>
+                    @loai.TenLoai
+                </option>
+            }
+        </optgroup>
+    }
+</select>
