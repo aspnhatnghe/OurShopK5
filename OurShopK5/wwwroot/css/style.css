@@ -1011,7 +1011,7 @@ button.submit.check_out{
 /*-- //top-products --*/
 /*-- newsletter --*/
 .newsletter{
-	padding:3em 0;
+	padding:13px 0;
 	background:#FA1818;
 }
 .w3agile_newsletter_left{
@@ -1159,8 +1159,8 @@ button.submit.check_out{
 	color:#999;
 }
 .wthree_footer_copy{
-	margin: 4em 0 0;
-    padding: 3em 0 0;
+	margin: 4px 0 0;
+    padding: 10px 0 0;
     text-align: center;
     border-top: 1px solid #3A3A3A;
 }

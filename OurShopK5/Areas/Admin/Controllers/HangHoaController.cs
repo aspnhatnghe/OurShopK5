@@ -52,7 +52,11 @@ namespace OurShopK5.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "TenLoai");
-            ViewBag.Loai = _context.Loais.ToList();
+            //ViewBag.Loai = _context.Loais.ToList();
+            ViewBag.LoaiCombo = new LoaiSelectModel
+            {
+                Data = _context.Loais.ToList()
+            };
             return View();
         }
 

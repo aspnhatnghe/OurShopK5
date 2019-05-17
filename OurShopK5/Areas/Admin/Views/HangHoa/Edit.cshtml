@@ -8,7 +8,7 @@
 <h2>Sửa thông tin hàng hóa</h2>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MaHh" />
@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label asp-for="Hinh" class="control-label"></label>
                 <img src="~/Hinh/HangHoa/@Model.Hinh" />
-                <input name="fHinh" class="form-control" />
+                <input type="file" name="fHinh" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="MoTa" class="control-label"></label>
@@ -42,7 +42,7 @@
                 <span asp-validation-for="GiamGia" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Cập nhật" class="btn btn-default" />
+                <input type="submit" value="Cập nhật" class="btn btn-success" />
             </div>
         </form>
     </div>
