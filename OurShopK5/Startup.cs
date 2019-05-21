@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OurShopK5.DataModels;
+using AutoMapper;
 
 namespace OurShopK5
 {
@@ -36,6 +37,9 @@ namespace OurShopK5
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<MyDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MyShop")));
+
+            //Add AutoMapper.Extensions.Microsoft.DependencyInjection
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

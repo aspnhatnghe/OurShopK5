@@ -18,6 +18,8 @@ namespace OurShopK5.DataModels
         [Required(ErrorMessage ="*")]
         public string TenLoai { get; set; }
         [Display(Name = "Mô tả")]
+        [MaxLength(50)]
+        public string TenKhongDau { get; set; }
         public string MoTa { get; set; }
         [Display(Name = "Hình")]
         [MaxLength(150, ErrorMessage = "Tối đa 150 kí tự")]

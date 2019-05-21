@@ -74,6 +74,7 @@ namespace OurShopK5.Areas.Admin.Controllers
                     hangHoa.Hinh = MyTool.XuLyUpload(fHinh, "HangHoa");
                 }
 
+                hangHoa.TenKhongDau = MyTool.ConvertUrlFriendly(hangHoa.TenHh);
                 _context.Add(hangHoa);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -126,6 +127,9 @@ namespace OurShopK5.Areas.Admin.Controllers
                     {
                         hangHoa.Hinh = MyTool.XuLyUpload(fHinh, "HangHoa");
                     }
+
+                    hangHoa.TenKhongDau = MyTool.ConvertUrlFriendly(hangHoa.TenHh);
+
                     _context.Update(hangHoa);
                     await _context.SaveChangesAsync();
                 }
