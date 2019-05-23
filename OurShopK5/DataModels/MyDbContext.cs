@@ -12,6 +12,9 @@ namespace OurShopK5.DataModels
         public DbSet<HangHoa> HangHoas { get; set; }
         public DbSet<QuaTang> QuaTangs { get; set; }
         public DbSet<NhanQua> NhanQuas { get; set; }
+        public DbSet<DonHang> DonHangs { get; set; }
+        public DbSet<ChiTietDonHang> ChiTietDonHangs { get; set; }
+        public DbSet<KhachHang> KhachHangs { get; set; }
 
         public MyDbContext(DbContextOptions options) : base(options) { }
     }
