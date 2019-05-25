@@ -18,3 +18,7 @@
     right: 5px;
     bottom: 5px;    
 }
+
+.pagination li{
+    width:25px; height:25px; background-color: #f8eba3; margin:2px; text-align:center;
+}

@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OurShopK5.DataModels;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace OurShopK5
 {
@@ -41,7 +42,8 @@ namespace OurShopK5
 
             //Add AutoMapper.Extensions.Microsoft.DependencyInjection
             services.AddAutoMapper();
-            
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OurShopK5.DataModels;
 using OurShopK5.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 
 namespace OurShopK5.Controllers
 {
@@ -22,7 +24,6 @@ namespace OurShopK5.Controllers
         {
             get
             {
-
                 List<CartItem> gioHang = HttpContext.Session.Get<List<CartItem>>("GioHang");
                 if (gioHang == null)
                     gioHang = new List<CartItem>();
@@ -67,18 +68,68 @@ namespace OurShopK5.Controllers
             //});
         }
 
+        [HttpPost("Cart/Checkout")]
         public IActionResult Checkout(KhachHangView model)
         {
-            //chưa đăng nhập --> tạo mới khách hàng
+            using (var transaction = ctx.Database.BeginTransaction())
+            {
+                try
+                {
+                    //chưa đăng nhập --> tạo mới khách hàng
+                    KhachHang kh = new KhachHang
+                    {
+                        MaKh = $"KH{DateTime.Now.Ticks}",
+                        HoTen = model.NguoiNhan,
+                        Email = model.Email,
+                        DiaChi = model.DiaChiGiaoHang
+                    };
+                    ctx.Add(kh);
+                    ctx.SaveChanges();
 
-            //tạo đơn hàng
+                    //tạo đơn hàng
+                    DonHang hd = new DonHang
+                    {
+                        MaKh = kh.MaKh,
+                        DiaChiGiaoHang = model.DiaChiGiaoHang,
+                        NguoiNhan = model.NguoiNhan,
+                        NgayDatHang = DateTime.Now,
+                        TongTien = Cart.Sum(p => p.ThanhTien),
+                        TrangThaiDonHang = TrangThaiDonHang.MoiDangHang
+                    };
+                    ctx.Add(hd);
+                    ctx.SaveChanges();
 
-            //tạo chi tiết đơn hàng
+                    //tạo chi tiết đơn hàng
+                    ChiTietDonHang cthd = null;
+                    foreach(var item in Cart)
+                    {
+                        cthd = new ChiTietDonHang
+                        {
+                            MaDh = hd.Id,
+                            MaHh = item.HangMua.MaHh,
+                            SoLuong = item.SoLuong,
+                            DonGia = item.HangMua.DonGia
+                        };
+                        ctx.Add(cthd);
+                    }
+                    ctx.SaveChanges();
+                    transaction.Commit();
+                    //xóa session
+                    HttpContext.Session.Remove("GioHang");
 
-            //xóa session
+                    //gửi mail thông tin đơn hàng cho khách hàng
+                    string noiDung = $"Chào {model.NguoiNhan},<br>Bạn đặt hàng thành công đơn hàng <b>{hd.Id}</b>, tổng tiền thanh toán là: {hd.TongTien}.";
+                    GoogleMailer.Send(model.Email, "Xac nhan Dat hang", noiDung);
+                }
+                catch(SmtpException mailEx)
+                {
 
-            //gửi mail thông tin đơn hàng cho khách hàng
-
+                }
+                catch(Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
             return RedirectToAction("Index", "HangHoa");
         }
     }

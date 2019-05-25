@@ -10,6 +10,7 @@ namespace OurShopK5.Models
 {
     public class MyTool
     {
+        public static int PAGE_SIZE = 3;
         private static string[] VietNamChar = new string[]
        {
            "aAeEoOuUiIdDyY-",

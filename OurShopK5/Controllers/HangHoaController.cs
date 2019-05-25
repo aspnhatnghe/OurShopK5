@@ -7,6 +7,7 @@ using OurShopK5.DataModels;
 using OurShopK5.Models;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using PagedList.Core;
 
 namespace OurShopK5.Controllers
 {
@@ -29,15 +30,14 @@ namespace OurShopK5.Controllers
             }
             return View(hh);
         }
-        public IActionResult Index(int? loai)
+        public IActionResult Index(int? loai, int page = 1)
         {
-            var dsHangHoa = ctx.HangHoas
-                .Include(prop => prop.Loai)
-                .AsQueryable();
+            var dsHangHoa = ctx.HangHoas.Include(prop => prop.Loai).AsQueryable();
 
             if(loai.HasValue)
             {
                 dsHangHoa = dsHangHoa.Where(p => p.MaLoai == loai.Value).AsQueryable();
+                ViewBag.Loai = loai.Value;
             }
 
             var data = new List<HangHoaView>();
@@ -49,7 +49,8 @@ namespace OurShopK5.Controllers
                 data.Add(hhvTemp);
             }
 
-            return View(data);
+            PagedList<HangHoaView> model = new PagedList<HangHoaView>(data.AsQueryable(), page, MyTool.PAGE_SIZE);
+            return View(model);
         }
     }
 }

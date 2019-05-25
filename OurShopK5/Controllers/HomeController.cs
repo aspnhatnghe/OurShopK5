@@ -15,9 +15,10 @@ namespace OurShopK5.Controllers
             return View();
         }
 
+        [Route("/LienHe")]
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Liên hệ";
 
             return View();
         }
