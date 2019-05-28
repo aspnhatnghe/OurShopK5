@@ -23,3 +23,8 @@ eShop Project K5
 - Gửi mail
 - CKEditor
 - Chèn google map
+
+
+## Buổi 6:
+- Quản lý Đơn hàng
+- Thống kê doanh thu (bảng + biểu đồ - ChartJS)

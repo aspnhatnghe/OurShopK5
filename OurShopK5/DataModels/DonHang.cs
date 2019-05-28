@@ -30,9 +30,13 @@ namespace OurShopK5.DataModels
     }
     public enum TrangThaiDonHang
     {
+        [Description("Mới đặt hàng")]
         MoiDangHang = 0,
+        [Description("Đã thanh toán")]
         DaThanhToan = 1,
+        [Description("Đơn hàng hoàn tất")]
         HoanTatDonHang = 2,
+        [Description("Hủy đơn hàng")]
         HuyDonHang = 3
     }
 }

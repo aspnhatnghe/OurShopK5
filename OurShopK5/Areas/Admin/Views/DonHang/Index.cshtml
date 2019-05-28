@@ -1,0 +1,76 @@
+﻿@model IEnumerable<OurShopK5.DataModels.DonHang>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<script>
+    $(function () {
+        $('#txtDenNgay').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+        //$('#txtTuNgay').datepicker({
+        //    uiLibrary: 'bootstrap4'
+        //});
+    });
+</script>
+<h2>Danh sách Đơn hàng</h2>
+<form>
+    <fieldset>
+        <legend>Tìm kiếm hóa đơn</legend>
+        Khách hàng: <input name="KhachHang" value="@ViewBag.KhachHang" /><br />
+        Từ ngày: <input name="TuNgay" id="txtTuNgay" value="@((DateTime)ViewBag.TuNgay.ToString("MM/dd/yyyy"))" />
+        đến ngày: <input name="DenNgay" id="txtDenNgay" value="@((DateTime)ViewBag.DenNgay.ToString("MM/dd/yyyy"))"/>
+        <button class="btn btn-success">Lọc hóa đơn</button>
+    </fieldset>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayDatHang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThaiDonHang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TongTien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NguoiNhan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiaChiGiaoHang)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.NgayDatHang.ToString("dd/MM/yyyy HH:mm:ss")
+                </td>
+                <td>
+                    @item.TrangThaiDonHang.ToString()
+                </td>
+                <td>
+                    @item.TongTien.ToString("#,##0") đ
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NguoiNhan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiaChiGiaoHang)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="DonHang" asp-area="Admin" asp-route-id="@item.Id">Chi tiết</a> |
+                    <a asp-action="Delete" asp-controller="DonHang" asp-area="Admin" asp-route-id="@item.Id">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
