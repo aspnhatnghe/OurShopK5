@@ -24,7 +24,8 @@ eShop Project K5
 - CKEditor
 - Chèn google map
 
-
 ## Buổi 6:
 - Quản lý Đơn hàng
+
+## Buổi 7:
 - Thống kê doanh thu (bảng + biểu đồ - ChartJS)

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<DoanhSoBanHangTheoLoai>
+@{
+    ViewData["Title"] = "DoanhSoBanHang";
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+
+<h2>Doanh So Bán Hàng</h2>
+
+<canvas id="bar-chart" width="800" height="450"></canvas>
+@using Newtonsoft.Json
+@{
+    var dsThang = Model.OrderBy(p => p.ThangNam)
+            .Select(p => p.ThangNam).Distinct().ToList();
+    var dsLoai = Model.Select(p => p.TenLoai).Distinct().ToList();
+    var _labels = JsonConvert.SerializeObject(dsThang);
+
+    var datas = new Dictionary<string, List<double>>();
+    foreach (var loai in dsLoai)
+    {
+        var dataThang = new List<double>();
+        foreach (var thang in dsThang)
+        {
+            var data = Model.SingleOrDefault(p => p.TenLoai == loai && p.ThangNam == thang);
+            dataThang.Add(data == null ? 0 : data.DoanhSo);
+        }
+        datas[loai] = dataThang;
+    }
+}
+@JsonConvert.SerializeObject(datas);
+<script>
+    $(function () {
+        new Chart(document.getElementById("bar-chart"), {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(_labels),
+                datasets: [
+                    @foreach (var item in datas.Keys) {
+                    <text>
+                        {
+                            label: "@Html.Raw(item)",
+                            backgroundColor: "#c4c4c4",
+                            data: @JsonConvert.SerializeObject(datas[item])
+                        },
+                    </text>
+                    }
+                ]
+            },
+            options: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: 'Thống kê Doanh thu'
+                }
+            }
+        });
+    });
+</script>
+
+

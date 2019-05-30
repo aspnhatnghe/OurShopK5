@@ -25,6 +25,18 @@ namespace OurShopK5.DataModels
         public string DiaChi { get; set; }
         public string MatKhau { get; set; }
         public bool ConHieuLuc { get; set; }
+        public VaiTro VaiTro { get; set; }
+    }
+    public enum VaiTro
+    {
+        [Description("Khách hàng")]
+        KhachHang = 0,
+        [Description("Bán hàng")]
+        BanHang = 1,
+        [Description("Kho")]
+        Kho = 2,
+        [Description("Quản trị")]
+        Admin = 3
     }
     public enum GioiTinh
     {
