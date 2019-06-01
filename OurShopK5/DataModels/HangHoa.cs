@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +17,7 @@ namespace OurShopK5.DataModels
         [Display(Name = "Tên hàng hóa")]
         [Required(ErrorMessage = "*")]
         [MaxLength(50, ErrorMessage = "Tối đa 50 kí tự")]
+        [Remote(controller:"HangHoa", action:"KiemTraTrungTen", areaName:"Admin", ErrorMessage ="Tên đã có")]
         public string TenHh { get; set; }
         [MaxLength(50)]
         public string TenKhongDau { get; set; }

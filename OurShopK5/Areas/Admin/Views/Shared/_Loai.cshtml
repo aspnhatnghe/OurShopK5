@@ -1,6 +1,6 @@
 ﻿@model LoaiSelectModel
 @{ 
-    int loaiChon = Model.Select.HasValue ? Model.Select.Value : 0;
+    int loaiChon = (Model.Select != null && Model.Select.HasValue) ? Model.Select.Value : 0;
 }
 <select name="MaLoai" class="form-control">
     <option value="0">-------------</option>

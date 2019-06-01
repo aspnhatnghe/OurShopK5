@@ -29,15 +29,15 @@ namespace OurShopK5.Areas.Admin.Controllers
             if (TuNgay == DateTime.MinValue)
             {
                 TuNgay = DateTime.Now.AddDays(-7);
-                data = data.Where(p => p.NgayDatHang >= TuNgay);
             }
+            data = data.Where(p => p.NgayDatHang >= TuNgay);
             if (DenNgay == DateTime.MinValue)
             {
-                DenNgay = DateTime.Now;
-                data = data.Where(p => p.NgayDatHang <= DenNgay);
+                DenNgay = DateTime.Now;                
             }
-            
-            if(!string.IsNullOrEmpty(KhachHang))
+            data = data.Where(p => p.NgayDatHang <= DenNgay);
+
+            if (!string.IsNullOrEmpty(KhachHang))
             {
                 data = data.Where(p => p.NguoiNhan.Contains(KhachHang));
             }

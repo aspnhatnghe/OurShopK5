@@ -22,6 +22,14 @@ namespace OurShopK5.Areas.Admin.Controllers
             _context = context;
         }
 
+        public IActionResult KiemTraTrungTen(string TenHh)
+        {
+            string tenKD = MyTool.ConvertUrlFriendly(TenHh);
+            var hh = _context.HangHoas.SingleOrDefault(p => p.TenKhongDau == tenKD);
+
+            return (hh != null) ? Json(data:"Trùng tên") : Json(data:true);            
+        }
+
         // GET: Admin/HangHoa
         public async Task<IActionResult> Index()
         {
